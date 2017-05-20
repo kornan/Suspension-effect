@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Demo</string>
+    <string name="integrated_sorting">综合排序</string>
+    <string name="filter">筛选</string>
+    <string name="nearest_distance">距离最近</string>
+    <string name="highest_sales">销量最高</string>
+</resources>
