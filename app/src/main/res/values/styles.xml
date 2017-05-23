@@ -10,4 +10,8 @@
         <item name="android:background">@android:color/white</item>
     </style>
 
+    <style name="AppThemeParallax" parent="AppTheme">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
 </resources>

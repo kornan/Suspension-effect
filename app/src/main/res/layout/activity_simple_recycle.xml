@@ -40,12 +40,17 @@
             android:id="@+id/fl_suspension"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone">
+            android:gravity="center_horizontal"
+            android:visibility="visible">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name" />
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:drawableLeft="@mipmap/ic_launcher"
+                android:drawablePadding="8dp"
+                android:gravity="center"
+                android:text="@string/suspension" />
         </FrameLayout>
     </RelativeLayout>
 
