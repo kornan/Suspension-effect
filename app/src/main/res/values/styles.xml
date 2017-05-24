@@ -11,6 +11,7 @@
     </style>
 
     <style name="AppThemeParallax" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
 

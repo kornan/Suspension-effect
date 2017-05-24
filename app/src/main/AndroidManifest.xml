@@ -15,7 +15,8 @@
         <activity android:name=".recycle.SimpleRecycleActivity">
 
         </activity>
-        <activity android:name=".parallax.ParallaxActivity"
+        <activity
+            android:name=".parallax.ParallaxActivity"
             android:theme="@style/AppThemeParallax">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

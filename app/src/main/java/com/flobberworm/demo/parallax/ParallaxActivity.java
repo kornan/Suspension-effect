@@ -1,14 +1,12 @@
 package com.flobberworm.demo.parallax;
 
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
-import android.widget.ImageView;
 
 import com.flobberworm.demo.R;
 import com.flobberworm.demo.utils.Cubic;
@@ -16,42 +14,52 @@ import com.flobberworm.demo.utils.Sine;
 
 public class ParallaxActivity extends AppCompatActivity {
     private ViewPager viewPager;
-    FrameLayout backgroundLayout;
-    HorizontalScrollView background_srcollview;
-    HorizontalScrollView layer_srcollview;
+    private HorizontalScrollView backgroundScrollview;
+    private HorizontalScrollView layerScrollview;
     private ParallaxAdapter adapter;
-    int total_page;
-    int backgoundWidth;
+    private int pageCount;
+    private int backgroundWidth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.MATCH_PARENT);
         setContentView(R.layout.activity_parallax);
-
-        initView();
-        initAdapter();
-        setViewPagerParams();
+        setupView();
     }
 
-    private void setViewPagerParams() {
+
+    private void setupView() {
+        backgroundScrollview = (HorizontalScrollView) findViewById(R.id.backgroundScrollView);
+        layerScrollview = (HorizontalScrollView) findViewById(R.id.layerScrollView);
+        viewPager = (ViewPager) findViewById(R.id.image_pager);
+
+        backgroundScrollview.setHorizontalScrollBarEnabled(false);
+        layerScrollview.setHorizontalScrollBarEnabled(false);
+
+        setSecondPixels();
+        setupViewPager();
+    }
+
+    private void setupViewPager() {
+        adapter = new ParallaxAdapter(this);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                total_page = adapter.getCount();
+                pageCount = adapter.getCount();
+                //缓动算法(学习中) 参考http://easings.net/zh-cn
 
-                float realOffset = Cubic.easeIn(positionOffset, 0, 1, 1);
-                float offset = (float) ((float) (position + realOffset) * 1.0 / total_page);
-                int offsetPosition = (int) (backgoundWidth * offset);
-                background_srcollview.scrollTo(offsetPosition,0);
+                //背景滚动
+                float backgroundOffset = Cubic.easeIn(positionOffset, 0, 1, 1);
+                float offset = (float) ((position + backgroundOffset) * 1.0 / pageCount);
+                int backgroundX = (int) (backgroundWidth * offset);
+                backgroundScrollview.scrollTo(backgroundX, 0);
 
+                //layer滚动
                 float layerRealOffset = Sine.easeIn(positionOffset, 0, 1, 1);
-                float layerOffset = (float) ((float) (position + layerRealOffset) * 1.0 / total_page);
-                int layerOffsetPosition = (int) (backgoundWidth * layerOffset);
-                layer_srcollview.scrollTo(layerOffsetPosition, 0);
+                float layerOffset = (float) ((position + layerRealOffset) * 1.0 / pageCount);
+                int layerX = (int) (backgroundWidth * layerOffset);
+                layerScrollview.scrollTo(layerX, 0);
             }
 
             @Override
@@ -66,59 +74,45 @@ public class ParallaxActivity extends AppCompatActivity {
         });
     }
 
-    private void initAdapter() {
-        adapter = new ParallaxAdapter(this);
-    }
-
-    private void initView() {
-        viewPager = (ViewPager) findViewById(R.id.image_pager);
-        backgroundLayout = (FrameLayout) findViewById(R.id.backgroundLayout);
-        background_srcollview = (HorizontalScrollView) findViewById(R.id.backgroundScrollView);
-        background_srcollview.setHorizontalScrollBarEnabled(false);
-        layer_srcollview = (HorizontalScrollView) findViewById(R.id.layerScrollView);
-        layer_srcollview.setHorizontalScrollBarEnabled(false);
+    /**
+     * 解决HorizontalScrollView中match_parent无效问题
+     * 将第2层的总宽度与viewPager的总宽度保持一致，每一个view的宽高对应手机的宽高
+     */
+    private void setSecondPixels() {
         DisplayMetrics dm = new DisplayMetrics();
-        // 取得窗口属性
         this.getWindowManager().getDefaultDisplay().getMetrics(dm);
-        backgoundWidth = dm.widthPixels * 5;
+        backgroundWidth = dm.widthPixels * 5;
         ViewGroup.LayoutParams layoutParams;
 
-//        ImageView back_image_one = (ImageView) findViewById(R.id.back_image_one);
-//        layoutParams = back_image_one.getLayoutParams();
-//        layoutParams.height = dm.heightPixels;
-//        layoutParams.width = dm.widthPixels;
-//        back_image_one.setLayoutParams(layoutParams);
-//
-//        FrameLayout.LayoutParams frameLayoutParams;
-//        ImageView layer_image_one = (ImageView) findViewById(R.id.layer_image_one);
-//        frameLayoutParams = (FrameLayout.LayoutParams) layer_image_one.getLayoutParams();
-//        frameLayoutParams.height = dm.heightPixels;
-//        frameLayoutParams.width = dm.widthPixels;
-//        layer_image_one.setLayoutParams(frameLayoutParams);
-//
-//        ImageView layer_image_two = (ImageView) findViewById(R.id.layer_image_two);
-//        frameLayoutParams = (FrameLayout.LayoutParams) layer_image_two.getLayoutParams();
-//        frameLayoutParams.height = dm.heightPixels;
-//        frameLayoutParams.width = dm.widthPixels;
-//        layer_image_two.setLayoutParams(frameLayoutParams);
-//
-//        ImageView layer_image_three = (ImageView) findViewById(R.id.layer_image_three);
-//        frameLayoutParams = (FrameLayout.LayoutParams) layer_image_three.getLayoutParams();
-//        frameLayoutParams.height = dm.heightPixels;
-//        frameLayoutParams.width = dm.widthPixels;
-//        layer_image_three.setLayoutParams(frameLayoutParams);
-//
-//        ImageView layer_image_four = (ImageView) findViewById(R.id.layer_image_four);
-//        frameLayoutParams = (FrameLayout.LayoutParams) layer_image_four.getLayoutParams();
-//        frameLayoutParams.height = dm.heightPixels;
-//        frameLayoutParams.width = dm.widthPixels;
-//        layer_image_four.setLayoutParams(frameLayoutParams);
-//
-//        ImageView layer_image_five = (ImageView) findViewById(R.id.layer_image_five);
-//        frameLayoutParams = (FrameLayout.LayoutParams) layer_image_five.getLayoutParams();
-//        frameLayoutParams.height = dm.heightPixels;
-//        frameLayoutParams.width = dm.widthPixels;
-//        layer_image_five.setLayoutParams(frameLayoutParams);
+        View view1 = findViewById(R.id.view_1);
+        layoutParams = view1.getLayoutParams();
+        layoutParams.height = dm.heightPixels;
+        layoutParams.width = dm.widthPixels;
+        view1.setLayoutParams(layoutParams);
+
+        View view2 = findViewById(R.id.view_2);
+        layoutParams = view1.getLayoutParams();
+        layoutParams.height = dm.heightPixels;
+        layoutParams.width = dm.widthPixels;
+        view2.setLayoutParams(layoutParams);
+
+        View view3 = findViewById(R.id.view_3);
+        layoutParams = view1.getLayoutParams();
+        layoutParams.height = dm.heightPixels;
+        layoutParams.width = dm.widthPixels;
+        view3.setLayoutParams(layoutParams);
+
+        View view4 = findViewById(R.id.view_4);
+        layoutParams = view1.getLayoutParams();
+        layoutParams.height = dm.heightPixels;
+        layoutParams.width = dm.widthPixels;
+        view4.setLayoutParams(layoutParams);
+
+        View view5 = findViewById(R.id.view_5);
+        layoutParams = view1.getLayoutParams();
+        layoutParams.height = dm.heightPixels;
+        layoutParams.width = dm.widthPixels;
+        view5.setLayoutParams(layoutParams);
     }
 
 }

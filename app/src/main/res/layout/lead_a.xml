@@ -12,7 +12,7 @@
         android:shadowColor="#000000"
         android:shadowDy="1"
         android:shadowRadius="5"
-        android:text="FLOBBERWORM"
+        android:text="我是小丽"
         android:textColor="#ffffff"
         android:textSize="28dp" />
 
@@ -30,12 +30,10 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
-        android:layout_below="@+id/tv_title"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:scaleType="fitCenter"
+        android:layout_width="128dp"
+        android:layout_height="190dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
         android:src="@mipmap/ching"
         android:visibility="visible" />
 

@@ -4,10 +4,10 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="122dp"
-        android:layout_height="232dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="190dp"
+        android:layout_width="128dp"
+        android:layout_height="190dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
         android:background="@android:color/transparent"
         android:src="@mipmap/uncle_dumplin" />
 
@@ -19,9 +19,9 @@
         android:shadowColor="#000000"
         android:shadowDy="1"
         android:shadowRadius="5"
-        android:text="卡哇伊"
+        android:text="我是大叔"
         android:textColor="#ffffff"
-        android:textSize="28dp" />
+        android:textSize="28sp" />
 
     <TextView
         android:layout_width="wrap_content"
