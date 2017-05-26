@@ -139,7 +139,7 @@ public class SimpleRecycleActivity extends AppCompatActivity {
 
                         if (dy > 0 && view.getTop() <= suspensionHeight) {
                             //上滑
-                            updateInfo(position);
+//                            updateInfo(position);
                         } else if (dy < 0 && view.getTop() <= suspensionHeight) {
                             //下滑
                             for (int i = firstPosition; i >= 0; i--) {
@@ -152,6 +152,7 @@ public class SimpleRecycleActivity extends AppCompatActivity {
                     }
                 } else {
                     flSuspension.setY(0);
+//                    updateInfo(position);
                 }
 
 //                updateInfo(position);
