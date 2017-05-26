@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.flobberworm.demo.DemoApplication;
 import com.flobberworm.demo.R;
 
 import java.util.List;
@@ -69,8 +71,9 @@ public class SimpleRecycleAdapter extends RecyclerView.Adapter<SimpleRecycleAdap
         }
     }
 
-    public static  class ContentData implements ItemData {
-        public String title;
+    public static class ContentData implements ItemData {
+        //        public String title;
+        public String imageUrl;
 
         @Override
         public int getType() {
@@ -102,18 +105,20 @@ public class SimpleRecycleAdapter extends RecyclerView.Adapter<SimpleRecycleAdap
     }
 
     class SimpleRecycleViewHolder extends ViewHolder<ContentData> {
-        private TextView tvTitle;
         private ImageView ivImage;
 
         public SimpleRecycleViewHolder(View itemView) {
             super(itemView);
-            tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
             ivImage = (ImageView) itemView.findViewById(R.id.iv_image);
         }
 
         @Override
         public void bindView(ContentData data) {
-            tvTitle.setText(data.title);
+//            tvTitle.setText(data.title);
+//            ivImage.setImageResource(data.imageUrl);
+            Glide.with(DemoApplication.application)
+                    .load(data.imageUrl)
+                    .into(ivImage);
         }
     }
 }
