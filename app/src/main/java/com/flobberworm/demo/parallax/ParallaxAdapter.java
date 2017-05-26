@@ -59,23 +59,23 @@ public class ParallaxAdapter extends PagerAdapter {
         }
         if(position == 0) {
             holder.image.removeAllViews();
-            View view0 = inflater.inflate(R.layout.lead_a, null);
+            View view0 = inflater.inflate(R.layout.layout_guide_a, null);
             holder.image.addView(view0);
         } else if (position == 1) {
             holder.image.removeAllViews();
-            View view1 = inflater.inflate(R.layout.lead_b, null);
+            View view1 = inflater.inflate(R.layout.layout_guide_b, null);
             holder.image.addView(view1);
         } else if (position == 2) {
             holder.image.removeAllViews();
-            View view2 = inflater.inflate(R.layout.lead_c, null);
+            View view2 = inflater.inflate(R.layout.layout_guide_c, null);
             holder.image.addView(view2);
         } else if (position == 3) {
             holder.image.removeAllViews();
-            View view3 = inflater.inflate(R.layout.lead_d, null);
+            View view3 = inflater.inflate(R.layout.layout_guide_d, null);
             holder.image.addView(view3);
         } else if (position == 4) {
             holder.image.removeAllViews();
-            View view4 = inflater.inflate(R.layout.lead_e, null);
+            View view4 = inflater.inflate(R.layout.layout_guide_e, null);
             holder.image.addView(view4);
         }
 
