@@ -23,6 +23,13 @@ public class DigitalActivity extends AppCompatActivity implements DigitalChangeV
         editInput = (EditText) findViewById(R.id.edit_input);
         textNumber = (DigitalChangeView) findViewById(R.id.text_number);
         textNumber.setOnEndListener(this);
+        textNumber.setDuration(500);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        textNumber.start();
     }
 
     public void onClickView(View v) {
@@ -37,7 +44,6 @@ public class DigitalActivity extends AppCompatActivity implements DigitalChangeV
                     } else {
                         return;
                     }
-                    textNumber.setDuration(500);
                     textNumber.start();
                     break;
             }

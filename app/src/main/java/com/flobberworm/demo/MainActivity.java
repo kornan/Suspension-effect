@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.flobberworm.demo.digital.DigitalActivity;
+import com.flobberworm.demo.parallax.ParallaxActivity;
 import com.flobberworm.demo.suspension.SimpleListActivity;
 import com.flobberworm.demo.suspension.recycle.SimpleRecycleActivity;
 
@@ -45,13 +47,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this, SimpleRecycleActivity.class));
                 break;
             case R.id.tv_parallax:
-                startActivity(new Intent(this, SimpleListActivity.class));
+                startActivity(new Intent(this, ParallaxActivity.class));
                 break;
             case R.id.tv_digital:
-                startActivity(new Intent(this, SimpleListActivity.class));
+                startActivity(new Intent(this, DigitalActivity.class));
                 break;
             case R.id.tv_parabola:
-                startActivity(new Intent(this, SimpleListActivity.class));
+                startActivity(new Intent(this, ParallaxActivity.class));
                 break;
         }
     }

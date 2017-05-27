@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context="com.flobberworm.demo.MainActivity">
 
@@ -11,32 +12,27 @@
 
     <TextView
         android:id="@+id/tv_pull"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
+        style="@style/AppCommonButton"
         android:text="@string/pull_refresh" />
 
     <TextView
         android:id="@+id/tv_recycle"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
+        style="@style/AppCommonButton"
         android:text="@string/recycle" />
 
     <TextView
         android:id="@+id/tv_parallax"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
+        style="@style/AppCommonButton"
         android:text="@string/parallax" />
 
     <TextView
         android:id="@+id/tv_digital"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
+        style="@style/AppCommonButton"
         android:text="@string/digital" />
 
     <TextView
         android:id="@+id/tv_parabola"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
+        style="@style/AppCommonButton"
         android:text="@string/parabola" />
 
 </LinearLayout>
