@@ -6,4 +6,9 @@
     <string name="highest_sales">销量最高</string>
     <string name="suspension">我要至顶</string>
     <string name="flobberworm">www.flobberworm.com</string>
+    <string name="pull_refresh">PullToRefresh悬浮</string>
+    <string name="recycle">RecycleView悬浮</string>
+    <string name="parallax">视差效果</string>
+    <string name="digital">仿支付宝数字</string>
+    <string name="parabola">抛物线效果</string>
 </resources>

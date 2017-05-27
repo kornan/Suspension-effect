@@ -1,11 +1,10 @@
-package com.flobberworm.demo.recycle;
+package com.flobberworm.demo.suspension.recycle;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,9 +12,6 @@ import com.flobberworm.demo.R;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.text.style.TtsSpan.TYPE_TIME;
-import static com.flobberworm.demo.recycle.SimpleRecycleAdapter.TYPE_SUSPENSION;
 
 
 public class SimpleRecycleActivity extends AppCompatActivity {
@@ -72,14 +68,14 @@ public class SimpleRecycleActivity extends AppCompatActivity {
             SimpleRecycleAdapter.SuspensionData suspensionData = new SimpleRecycleAdapter.SuspensionData();
             suspensionData.title = name[i];
             dataList.add(suspensionData);
-            SimpleRecycleAdapter.ContentData contentData = new SimpleRecycleAdapter.ContentData();
+            SimpleContentData contentData = new SimpleContentData();
             if (i % 2 == 1) {
                 contentData.imageUrl = "http://img.ivsky.com/img/tupian/pre/201611/02/yangmingshan_guojiasenlin_gongyuan-003.jpg";
             } else {
                 contentData.imageUrl = "http://img.ivsky.com/img/tupian/pre/201611/02/yangmingshan_guojiasenlin_gongyuan-002.jpg";
             }
             dataList.add(contentData);
-            contentData = new SimpleRecycleAdapter.ContentData();
+            contentData = new SimpleContentData();
             if (i % 2 == 0) {
                 contentData.imageUrl = "http://img.ivsky.com/img/tupian/pre/201611/02/yangmingshan_guojiasenlin_gongyuan-003.jpg";
             } else {
@@ -110,11 +106,7 @@ public class SimpleRecycleActivity extends AppCompatActivity {
                 if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
                     suspensionHeight = flSuspension.getHeight();
                 }
-                Log.w("position", "newState=" + newState);
             }
-
-            //当前状态
-            private int status = 0;
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -124,26 +116,21 @@ public class SimpleRecycleActivity extends AppCompatActivity {
                     return;
                 }
                 //当前界面第一个View的类型是否悬浮类型
-                if (simpleRecycleAdapter.getItemViewType(position) == TYPE_SUSPENSION) {
+                if (simpleRecycleAdapter.getItemViewType(position) == SimpleRecycleAdapter.TYPE_SUSPENSION) {
                     View view = linearLayoutManager.findViewByPosition(position);
                     if (view != null) {
-//                        下一个itemSuspension 到顶部的距离小于suspensionBar的高度时,通过setY来移动该View
+                        // 下一个itemSuspension 到顶部的距离小于suspensionBar的高度时,通过setY来移动该View
                         if (view.getTop() <= suspensionHeight) {
                             flSuspension.setY(-(suspensionHeight - view.getTop()));
-                            Log.w("position", "getY=" + flSuspension.getY() + " position=" + position + " dy=" + dy);
                         } else {
                             //setY(0)固定悬浮View在顶部
                             flSuspension.setY(0);
-                            Log.w("position", "悬浮View在顶部" + flSuspension.getY() + " position=" + position + " dy=" + dy);
                         }
 
-                        if (dy > 0 && view.getTop() <= suspensionHeight) {
-                            //上滑
-//                            updateInfo(position);
-                        } else if (dy < 0 && view.getTop() <= suspensionHeight) {
-                            //下滑
+                        //解决下滑时悬浮View内容不一致
+                        if (dy < 0 && view.getTop() <= suspensionHeight) {
                             for (int i = firstPosition; i >= 0; i--) {
-                                if (simpleRecycleAdapter.getItemViewType(i) == TYPE_SUSPENSION) {
+                                if (simpleRecycleAdapter.getItemViewType(i) == SimpleRecycleAdapter.TYPE_SUSPENSION) {
                                     updateInfo(i);
                                     break;
                                 }
@@ -152,36 +139,14 @@ public class SimpleRecycleActivity extends AppCompatActivity {
                     }
                 } else {
                     flSuspension.setY(0);
-//                    updateInfo(position);
                 }
-
-//                updateInfo(position);
-                //RecycleView至顶时隐藏掉悬浮View
-//                flSuspension.setVisibility(linearLayoutManager.findFirstCompletelyVisibleItemPosition() == 0 ? View.GONE : View.VISIBLE);
-//                首个
-//                当滚动到要悬浮的item
-//                if (simpleRecycleAdapter.getItemViewType(mCurrentPosition + 1) == TYPE_SUSPENSION) {
-//                    View view = linearLayoutManager.findViewByPosition(mCurrentPosition + 1);
-//                    if (view != null) {
-//                        //下一个itemSuspension 到顶部的距离小于suspensionBar的高度时,通过setY来移动该View
-//                        if (view.getTop() <= suspensionHeight) {
-//                            flSuspension.setY(-(suspensionHeight - view.getTop()));
-//                        } else {
-//                            //setY(0)固定悬浮View
-//                            flSuspension.setY(0);
-//                        }
-//                    }
-//                }
-//                //RecycleView至顶时隐藏掉悬浮View
-//                flSuspension.setVisibility(linearLayoutManager.findFirstCompletelyVisibleItemPosition() == 0 ? View.GONE : View.VISIBLE);
-//                //
-//                if (mCurrentPosition != linearLayoutManager.findFirstVisibleItemPosition()) {
-//                    //记录第一个item的位置
-//                    mCurrentPosition = linearLayoutManager.findFirstVisibleItemPosition();
-//                    Log.w("position", "position=" + mCurrentPosition + " data=" + dataList.get(mCurrentPosition));
-//                    flSuspension.setY(0);
-//                    updateInfo(mCurrentPosition);
-//                }
+                //RecycleView至顶时隐藏掉悬浮View,防止致顶时遮挡刷新控件
+                flSuspension.setVisibility(linearLayoutManager.findFirstCompletelyVisibleItemPosition() == 0 ? View.GONE : View.VISIBLE);
+                //当前界面的Position改变后更新
+                if (mCurrentPosition != firstPosition) {
+                    mCurrentPosition = firstPosition;
+                    updateInfo(mCurrentPosition);
+                }
             }
         });
         updateInfo(0);

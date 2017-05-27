@@ -1,4 +1,4 @@
-package com.flobberworm.demo.recycle;
+package com.flobberworm.demo.suspension.recycle;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -40,11 +40,6 @@ public class SimpleRecycleAdapter extends RecyclerView.Adapter<SimpleRecycleAdap
 
     @Override
     public void onBindViewHolder(SimpleRecycleAdapter.ViewHolder holder, int position) {
-//        if (getItemViewType(position) == TYPE_SUSPENSION) {
-//
-//        } else {
-//           ((SimpleRecycleViewHolder) holder).bindView(dataList.get(position));
-//        }
         holder.bindView(dataList.get(position));
     }
 
@@ -71,16 +66,6 @@ public class SimpleRecycleAdapter extends RecyclerView.Adapter<SimpleRecycleAdap
         }
     }
 
-    public static class ContentData implements ItemData {
-        //        public String title;
-        public String imageUrl;
-
-        @Override
-        public int getType() {
-            return 0;
-        }
-    }
-
     public static abstract class ViewHolder<T extends ItemData> extends RecyclerView.ViewHolder {
 
         public ViewHolder(View itemView) {
@@ -104,22 +89,5 @@ public class SimpleRecycleAdapter extends RecyclerView.Adapter<SimpleRecycleAdap
         }
     }
 
-    class SimpleRecycleViewHolder extends ViewHolder<ContentData> {
-        private ImageView ivImage;
-
-        public SimpleRecycleViewHolder(View itemView) {
-            super(itemView);
-            ivImage = (ImageView) itemView.findViewById(R.id.iv_image);
-        }
-
-        @Override
-        public void bindView(ContentData data) {
-//            tvTitle.setText(data.title);
-//            ivImage.setImageResource(data.imageUrl);
-            Glide.with(DemoApplication.application)
-                    .load(data.imageUrl)
-                    .into(ivImage);
-        }
-    }
 }
 

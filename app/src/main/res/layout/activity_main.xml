@@ -7,48 +7,36 @@
     android:orientation="vertical"
     tools:context="com.flobberworm.demo.MainActivity">
 
+    <include layout="@layout/layout_toolbar" />
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <TextView
+        android:id="@+id/tv_pull"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="0dp">
+        android:layout_height="40dp"
+        android:text="@string/pull_refresh" />
 
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:lines="1"
-            android:text="@string/app_name"
-            android:textSize="20sp" />
-
-    </android.support.v7.widget.Toolbar>
-
-    <RelativeLayout
+    <TextView
+        android:id="@+id/tv_recycle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="40dp"
+        android:text="@string/recycle" />
 
-        <com.handmark.pulltorefresh.library.PullToRefreshListView
-            android:id="@+id/pullToRefreshListView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/white"
-            android:dividerHeight="0.5dp"
-            android:paddingTop="0.5dp"
-            app:ptrDrawable="@mipmap/ic_launcher"
-            app:ptrRefreshableViewBackground="#ffffff"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
+    <TextView
+        android:id="@+id/tv_parallax"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="@string/parallax" />
 
-        <include
-            android:id="@+id/filterView"
-            layout="@layout/layout_filter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_digital"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="@string/digital" />
+
+    <TextView
+        android:id="@+id/tv_parabola"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="@string/parabola" />
 
 </LinearLayout>

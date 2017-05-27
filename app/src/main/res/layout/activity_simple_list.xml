@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.flobberworm.demo.suspension.SimpleListActivity">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            android:id="@+id/pullToRefreshListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:dividerHeight="0.5dp"
+            android:paddingTop="0.5dp"
+            app:ptrDrawable="@mipmap/ic_launcher"
+            app:ptrRefreshableViewBackground="#ffffff"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <include
+            android:id="@+id/filterView"
+            layout="@layout/layout_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>
